@@ -4,54 +4,44 @@ from aiogram.types import Message
 
 import MotoristBot.app.buttons as kb
 
+from MotoristBot.app.texts import HelloFromBot, Instruction, Example, Help
+
 router = Router()
 
 
 @router.message(CommandStart())
 async def start(message: Message):
-    await message.answer('Привет!', reply_markup=kb.main)
+    await message.answer(f"Приветcтвую дорогой, {message.from_user.full_name}!", reply_markup=kb.start)
 
 
-@router.message(Command('example'))
-async def get_help(message: Message):
-    text = Example.get_example()
-    await message.answer(text, reply_markup=kb.main)
+@router.message(F.text == "перезагрузка")
+async def get_hello(message: Message):
+    await message.answer(f"Давайте с самого начала, {message.from_user.full_name}!", reply_markup=kb.hello_from_bot)
 
 
-@router.message(Command('instruction'))
-async def get_help(message: Message):
+@router.message(F.text == "кто я?")
+async def get_hello(message: Message):
+    text = HelloFromBot.hello()
+    await message.answer(text, reply_markup=kb.hello_from_bot)
+
+
+@router.message(F.text == "инструкция")
+async def get_info(message: Message):
     text = Instruction.get_ins()
-    await message.answer(text, reply_markup=kb.main)
+    await message.answer(text, reply_markup=kb.instruction)
 
 
-@router.message(Command('help'))
+@router.message(F.text == "пример")
+async def get_example(message: Message):
+    text = Example.get_example()
+    await message.answer(text, reply_markup=kb.example)
+
+
+@router.message(F.text == "помощь")
 async def get_help(message: Message):
     text = Help.get_help()
-    await message.answer(text, reply_markup=kb.main)
+    await message.answer(text, reply_markup=kb.help_user)
 
 
-@router.message(Command('GetQRcode'))
-async def get_qr(message: Message):
-    await message.answer('Жду текст!', reply_markup=kb.main1)
-
-    @router.message(F.text)
-    async def get_help(message: Message):
-        data = message.text
-        Getpng().create_qrcode(data)
-        file = types.FSInputFile('qr_code.png', 'rb')
-        await message.answer_photo(photo=file)
 
 
-@router.message(F.text == "Ты тут?")
-async def are_u_here(message: Message):
-    await message.reply('Да, я тут!')
-
-# @router.message(F.text)
-# async def get_help(message: Message):
-#     # sens = message.text.split(' ')
-#     # name, data = sens
-#     data = message.text
-#     Getpng().create_qrcode(data)
-#     # with open('qr_code.png', 'rb') as photo:
-#     await message.answer_photo(photo=types.FSInputFile('qr_code.png', 'rb'))
-#         # await message.answer_photo(photo)
