@@ -1,6 +1,1 @@
-from secret import token_bot
-
-
-
-if __name__ == "__main__":
-    pass
+from dotenv import load_dotenv

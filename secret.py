@@ -3,4 +3,9 @@ from dotenv import load_dotenv
 
 
 load_dotenv()
-token_bot = os.environ.get('TOKEN')
+
+TOKEN = os.getenv('TOKEN')
+
+if __name__ == "__main__":
+    pass
+
