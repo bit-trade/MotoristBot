@@ -1,7 +1,6 @@
 from sqlalchemy import Table, Column, ForeignKey, String, Text, Date, Float, Integer, BigInteger
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
-from datetime import datetime
 
 
 BaseModel = declarative_base()
@@ -31,7 +30,7 @@ class Cars(BaseModel):
     __tablename__ = 'cars'
     id = Column(Integer, primary_key=True)
     make_model = Column(String(30), nullable=False)
-    car_year = Column(Date, default=datetime.date(2000, 1, 1))
+    car_year = Column(Date)
     mileage = Column(BigInteger)
     engine_distance = Column(Float)
     engine_type = Column(String(15))
